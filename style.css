@@ -25,7 +25,7 @@ body {
 }
 
 .hero h1 {
-  font-size: clamp(48px, 7vw, 82px);
+font-size: clamp(56px, 8vw, 100px);
   font-weight: 800;
   letter-spacing: -3px;
   color: #ffffff;
@@ -68,11 +68,11 @@ body {
 }
 
 .tagline {
-  margin-top: 35px;
-  font-size: 13px;
-  letter-spacing: 4px;
+  margin-top: 55px;
+  font-size: 17px;
+  letter-spacing: 5px;
   color: #64748b;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 @media (max-width: 600px) {
