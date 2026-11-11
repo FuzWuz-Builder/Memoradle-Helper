@@ -1,5 +1,92 @@
 
 * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #050a18, #101d3b, #071329);
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.hero {
+  text-align: center;
+  max-width: 1000px;
+  width: 100%;
+  margin: auto;
+}
+
+.hero h1 {
+  font-size: clamp(56px, 8vw, 100px);
+  font-weight: 800;
+  letter-spacing: -3px;
+  color: #ffffff;
+  margin-bottom: 25px;
+}
+
+.hero h2 {
+  font-size: clamp(22px, 3vw, 32px);
+  color: #60a5fa;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.hero p {
+  font-size: 19px;
+  line-height: 1.9;
+  color: #cbd5e1;
+  max-width: 850px;
+  margin: 0 auto 45px;
+}
+
+.start-button {
+  display: block;
+  margin: 0 auto;
+  padding: 22px 65px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: white;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.start-button:hover {
+  transform: scale(1.07);
+  box-shadow: 0 10px 35px rgba(37, 99, 235, 0.4);
+}
+
+..tagline {
+  margin-top: 55px;
+  font-size: 17px;
+  letter-spacing: 5px;
+  color: #64748b;
+  font-weight: 800;
+}
+
+@media (max-width: 600px) {
+  .hero p {
+    font-size: 16px;
+  }
+
+  .start-button {
+    padding: 18px 40px;
+    font-size: 18px;
+  }
+}
+
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -94,59 +181,4 @@ body {
     .games-grid {
         grid-template-columns: 1fr;
     }
-}
-
-
-/* RESTORED HOMEPAGE DESIGN */
-
-.hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 30px;
-}
-
-.hero h1 {
-    font-size: clamp(56px, 8vw, 100px);
-    font-weight: 900;
-    letter-spacing: -3px;
-    margin-bottom: 55px;
-    color: white;
-}
-
-.tagline {
-    font-size: 17px;
-    font-weight: 800;
-    letter-spacing: 5px;
-    margin-bottom: 30px;
-    color: #8fc8ff;
-}
-
-.hero p {
-    max-width: 650px;
-    font-size: 18px;
-    line-height: 1.7;
-    color: #d4e3f5;
-    margin-bottom: 35px;
-}
-
-.hero button {
-    padding: 17px 38px;
-    background: #2879c7;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.hero button:hover {
-    background: #4599e8;
-    transform: translateY(-3px);
 }
