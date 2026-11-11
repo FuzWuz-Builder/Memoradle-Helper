@@ -95,3 +95,58 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* RESTORED HOMEPAGE DESIGN */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px;
+}
+
+.hero h1 {
+    font-size: clamp(56px, 8vw, 100px);
+    font-weight: 900;
+    letter-spacing: -3px;
+    margin-bottom: 55px;
+    color: white;
+}
+
+.tagline {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 5px;
+    margin-bottom: 30px;
+    color: #8fc8ff;
+}
+
+.hero p {
+    max-width: 650px;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #d4e3f5;
+    margin-bottom: 35px;
+}
+
+.hero button {
+    padding: 17px 38px;
+    background: #2879c7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.hero button:hover {
+    background: #4599e8;
+    transform: translateY(-3px);
+}
