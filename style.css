@@ -85,3 +85,135 @@ font-size: clamp(56px, 8vw, 100px);
     font-size: 18px;
   }
 }
+
+
+/* GAMES PAGE */
+
+.games-page {
+  max-width: 1050px;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.games-page > h1 {
+  font-size: clamp(42px, 6vw, 65px);
+  font-weight: 800;
+  color: white;
+  letter-spacing: -2px;
+  margin-bottom: 15px;
+}
+
+.games-subtitle {
+  color: #94a3b8;
+  font-size: 19px;
+  margin-bottom: 55px;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.game-card {
+  position: relative;
+  min-height: 245px;
+  padding: 35px 25px;
+  text-align: left;
+  background: linear-gradient(145deg, #142344, #0b1428);
+  border: 1px solid #263e68;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: 0.3s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-7px);
+  border-color: #3b82f6;
+  box-shadow: 0 12px 35px rgba(37, 99, 235, 0.2);
+}
+
+.game-number {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.game-icon {
+  display: block;
+  font-size: 34px;
+  color: #60a5fa;
+  margin-bottom: 20px;
+}
+
+.game-card h2 {
+  font-size: 27px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.game-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #a8b8d0;
+  margin-bottom: 25px;
+}
+
+.play-text {
+  color: #60a5fa;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.selected-game {
+  display: none;
+  margin-top: 35px;
+  padding: 25px;
+  background: #101e38;
+  border: 1px solid #3b82f6;
+  border-radius: 15px;
+}
+
+.selected-game h2 {
+  color: #60a5fa;
+  margin-bottom: 10px;
+}
+
+.selected-game p {
+  color: #cbd5e1;
+}
+
+.back-button {
+  margin-top: 40px;
+  background: transparent;
+  border: 1px solid #3b82f6;
+  color: #60a5fa;
+  padding: 14px 25px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+
+.back-button:hover {
+  background: #1d355d;
+}
+
+@media (max-width: 650px) {
+  .games-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .games-page > h1 {
+    font-size: 40px;
+  }
+}
