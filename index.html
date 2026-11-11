@@ -11,9 +11,9 @@
 
 <body>
 
-  <main class="hero">
+  <!-- HOMEPAGE -->
+  <main class="hero" id="home">
     <h1>Memoradle Helper</h1>
-
     <h2>Make memorising easier. Make learning fun.</h2>
 
     <p>
@@ -32,12 +32,88 @@
       count with Memoradle Helper.
     </p>
 
-    <button class="start-button">GET STARTED</button>
+    <button class="start-button" onclick="showGames()">
+      GET STARTED
+    </button>
 
     <div class="tagline">
       LEARN SMARTER. REMEMBER LONGER.
     </div>
   </main>
+
+  <!-- GAMES PAGE -->
+  <main class="games-page" id="games" style="display:none">
+
+    <h1>Choose Your Game</h1>
+    <p class="games-subtitle">
+      Pick a challenge and put your memory to the test.
+    </p>
+
+    <div class="games-grid">
+
+      <button class="game-card" onclick="selectGame('Quote Quest')">
+        <span class="game-number">01</span>
+        <span class="game-icon">✦</span>
+        <h2>Quote Quest</h2>
+        <p>Master important quotes and their meanings.</p>
+        <span class="play-text">PLAY GAME →</span>
+      </button>
+
+      <button class="game-card" onclick="selectGame('Word Match')">
+        <span class="game-number">02</span>
+        <span class="game-icon">◆</span>
+        <h2>Word Match</h2>
+        <p>Match words with their correct definitions.</p>
+        <span class="play-text">PLAY GAME →</span>
+      </button>
+
+      <button class="game-card" onclick="selectGame('Missing Words')">
+        <span class="game-number">03</span>
+        <span class="game-icon">✎</span>
+        <h2>Missing Words</h2>
+        <p>Fill in the blanks and test what you remember.</p>
+        <span class="play-text">PLAY GAME →</span>
+      </button>
+
+      <button class="game-card" onclick="selectGame('Memory Challenge')">
+        <span class="game-number">04</span>
+        <span class="game-icon">⚡</span>
+        <h2>Memory Challenge</h2>
+        <p>Challenge yourself to remember key information.</p>
+        <span class="play-text">PLAY GAME →</span>
+      </button>
+
+    </div>
+
+    <div class="selected-game" id="selected-game">
+      <h2 id="selected-title"></h2>
+      <p id="selected-description"></p>
+    </div>
+
+    <button class="back-button" onclick="showHome()">
+      ← BACK TO HOME
+    </button>
+
+  </main>
+
+  <script>
+    function showGames() {
+      document.getElementById("home").style.display = "none";
+      document.getElementById("games").style.display = "block";
+    }
+
+    function showHome() {
+      document.getElementById("games").style.display = "none";
+      document.getElementById("home").style.display = "block";
+    }
+
+    function selectGame(name) {
+      document.getElementById("selected-title").textContent = name;
+      document.getElementById("selected-description").textContent =
+        "You've selected " + name + "! The game is coming soon.";
+      document.getElementById("selected-game").style.display = "block";
+    }
+  </script>
 
 </body>
 </html>
