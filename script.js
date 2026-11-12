@@ -23,6 +23,7 @@ function selectGame(name) {
     }
 }
 
+
 function createChallenge() {
     const quote = document.getElementById("quoteInput").value.trim();
 
@@ -37,6 +38,40 @@ function createChallenge() {
         alert("Please enter a longer quote!");
         return;
     }
+
+    const indexes = challengeWords.map((_, i) => i);
+
+    for (let i = indexes.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indexes[i], indexes[j]] = [indexes[j], indexes[i]];
+    }
+
+    missingIndexes = indexes.slice(0, Math.ceil(challengeWords.length / 2));
+    missingIndexes.sort((a, b) => a - b);
+
+    const display = document.getElementById("quoteDisplay");
+    display.replaceChildren();
+
+    challengeWords.forEach((word, index) => {
+        if (missingIndexes.includes(index)) {
+            const input = document.createElement("input");
+            input.type = "text";
+            input.className = "missing-input";
+            input.placeholder = "?";
+            input.dataset.index = index;
+            input.autocomplete = "off";
+            display.appendChild(input);
+        } else {
+            const text = document.createElement("span");
+            text.textContent = word + " ";
+            display.appendChild(text);
+        }
+    });
+
+    document.querySelector(".quote-input-area").style.display = "none";
+    document.getElementById("challengeArea").style.display = "block";
+    document.getElementById("results").style.display = "none";
+}
 
     // Randomly choose roughly half the words
     const indexes = challengeWords.map((_, i) => i);
