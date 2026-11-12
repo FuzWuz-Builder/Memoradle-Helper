@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="style.css">
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +40,7 @@
       LEARN SMARTER. REMEMBER LONGER.
     </div>
   </main>
+
 
   <!-- GAMES PAGE -->
   <main class="games-page" id="games" style="display:none">
@@ -85,76 +86,199 @@
 
     </div>
 
-    <div class="selected-game" id="selected-game">
-      <h2 id="selected-title"></h2>
-      <p id="selected-description"></p>
-    </div>
-
     <button class="back-button" onclick="showHome()">
       ← BACK TO HOME
     </button>
 
   </main>
 
+
+  <!-- MISSING WORDS GAME -->
+  <main class="selected-game" id="selected-game" style="display:none">
+
+    <button class="back-button" onclick="showGames()">
+      ← BACK TO GAMES
+    </button>
+
+    <div class="missing-game">
+      <div class="game-label">GAME 03 · MEMORY TRAINING</div>
+
+      <h2>Missing Words</h2>
+
+      <p class="game-description">
+        Enter a quote, memorise it, then fill in the missing words!
+      </p>
+
+      <div class="quote-input-area">
+        <label for="quoteInput">YOUR QUOTE</label>
+
+        <textarea id="quoteInput" placeholder="Paste or type your quote here..."></textarea>
+
+        <button class="primary-button" onclick="createChallenge()">
+          CREATE CHALLENGE →
+        </button>
+      </div>
+
+      <div id="challengeArea" style="display:none">
+        <h3>Complete the quote</h3>
+
+        <p class="instruction">
+          Fill in the missing words below.
+        </p>
+
+        <div id="quoteDisplay" class="quote-display"></div>
+
+        <div class="game-actions">
+          <button class="primary-button" onclick="checkAnswers()">
+            CHECK ANSWERS
+          </button>
+
+          <button class="secondary-button" onclick="createChallenge()">
+            TRY AGAIN
+          </button>
+        </div>
+
+        <div id="results" class="results" style="display:none"></div>
+      </div>
+    </div>
+
+  </main>
+
+
   <script>
+    // PAGE NAVIGATION
+
     function showGames() {
       document.getElementById("home").style.display = "none";
       document.getElementById("games").style.display = "block";
+      document.getElementById("selected-game").style.display = "none";
     }
 
     function showHome() {
+      document.getElementById("home").style.display = "flex";
       document.getElementById("games").style.display = "none";
-      document.getElementById("home").style.display = "block";
+      document.getElementById("selected-game").style.display = "none";
     }
 
-    function showGames() {
-    document.getElementById("home").style.display = "none";
-    document.getElementById("games").style.display = "block";
-    document.getElementById("selected-game").style.display = "none";
+    function selectGame(name) {
+      if (name === "Missing Words") {
+        document.getElementById("games").style.display = "none";
+        document.getElementById("selected-game").style.display = "block";
+      } else {
+        alert(name + " is coming soon!");
+      }
     }
 
 
-<main class="selected-game" id="selected-game" style="display:none">
-    <button class="back-button" onclick="showGames()">← BACK TO GAMES</button>
+    // MISSING WORDS GAME
 
-    <div class="missing-game">
-        <div class="game-label">GAME 03 · MEMORY TRAINING</div>
-        <h2>Missing Words</h2>
-        <p class="game-description">
-            Enter a quote, memorise it, then fill in the missing words!
-        </p>
+    let challengeWords = [];
+    let missingIndexes = [];
 
-        <div class="quote-input-area">
-            <label for="quoteInput">YOUR QUOTE</label>
-            <textarea id="quoteInput" placeholder="Paste or type your quote here..."></textarea>
-            <button class="primary-button" onclick="createChallenge()">
-                CREATE CHALLENGE →
-            </button>
-        </div>
+    function createChallenge() {
+      const quote = document.getElementById("quoteInput").value.trim();
 
-        <div id="challengeArea" style="display:none">
-            <h3>Complete the quote</h3>
-            <p class="instruction">Fill in the missing words below.</p>
-            <div id="quoteDisplay" class="quote-display"></div>
+      if (!quote) {
+        alert("Please enter a quote first!");
+        return;
+      }
 
-            <div class="game-actions">
-                <button class="primary-button" onclick="checkAnswers()">
-                    CHECK ANSWERS
-                </button>
-                <button class="secondary-button" onclick="createChallenge()">
-                    TRY AGAIN
-                </button>
-            </div>
+      challengeWords = quote.split(/\s+/);
 
-            <div id="results" class="results" style="display:none"></div>
-        </div>
-    </div>
-</main>
+      if (challengeWords.length < 2) {
+        alert("Please enter a longer quote!");
+        return;
+      }
 
+      const indexes = challengeWords.map((_, i) => i);
+
+      for (let i = indexes.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indexes[i], indexes[j]] = [indexes[j], indexes[i]];
+      }
+
+      missingIndexes = indexes.slice(
+        0,
+        Math.ceil(challengeWords.length / 2)
+      );
+
+      missingIndexes.sort((a, b) => a - b);
+
+      const display = document.getElementById("quoteDisplay");
+      display.replaceChildren();
+
+      challengeWords.forEach((word, index) => {
+        if (missingIndexes.includes(index)) {
+          const input = document.createElement("input");
+          input.type = "text";
+          input.className = "missing-input";
+          input.placeholder = "?";
+          input.dataset.index = index;
+          input.autocomplete = "off";
+          display.appendChild(input);
+        } else {
+          const text = document.createElement("span");
+          text.textContent = word + " ";
+          display.appendChild(text);
+        }
+      });
+
+      document.getElementById("challengeArea").style.display = "block";
+      document.getElementById("results").style.display = "none";
     }
+
+    function normaliseWord(word) {
+      return word
+        .toLowerCase()
+        .replace(/[.,!?;:"“”‘’()]/g, "")
+        .trim();
+    }
+
+    function checkAnswers() {
+      const inputs = document.querySelectorAll(".missing-input");
+      let correct = 0;
+
+      inputs.forEach(input => {
+        const index = Number(input.dataset.index);
+        const answer = normaliseWord(input.value);
+        const correctAnswer = normaliseWord(challengeWords[index]);
+
+        if (answer === correctAnswer) {
+          correct++;
+          input.classList.add("answer-correct");
+          input.classList.remove("answer-wrong");
+        } else {
+          input.classList.add("answer-wrong");
+          input.classList.remove("answer-correct");
+        }
+      });
+
+      const total = missingIndexes.length;
+      const results = document.getElementById("results");
+
+      results.replaceChildren();
+
+      const score = document.createElement("h3");
+      score.textContent = `Your score: ${correct} / ${total}`;
+      results.appendChild(score);
+
+      const message = document.createElement("p");
+      message.textContent =
+        correct === total
+          ? "Perfect! You remembered every missing word!"
+          : "Good effort! Check the highlighted answers and try again.";
+      results.appendChild(message);
+
+      const answers = document.createElement("p");
+      answers.className = "correct-answers";
+      answers.textContent = "Correct answers: " +
+        missingIndexes.map(i => challengeWords[i]).join(", ");
+      results.appendChild(answers);
+
+      results.style.display = "block";
+    }
+
   </script>
 
 </body>
 </html>
-
-}
