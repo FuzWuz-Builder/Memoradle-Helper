@@ -126,4 +126,3 @@ function checkAnswers() {
 
     results.style.display = "block";
 }
-
