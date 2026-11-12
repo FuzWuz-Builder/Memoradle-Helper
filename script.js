@@ -9,6 +9,13 @@ function showHome() {
 }
 
 function showGames() {
+  document.getElementById("home").style.display = "none";
+  document.getElementById("games").style.display = "block";
+  document.getElementById("selected-game").style.display = "none";
+  document.getElementById("word-match-game").style.display = "none";
+}
+
+function showGames() {
     document.getElementById("home").style.display = "none";
     document.getElementById("games").style.display = "block";
     document.getElementById("selected-game").style.display = "none";
