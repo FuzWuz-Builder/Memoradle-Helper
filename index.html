@@ -144,6 +144,60 @@
 
   </main>
 
+<!-- WORD MATCH GAME -->
+<main class="selected-game" id="word-match-game" style="display:none">
+
+  <button class="back-button" onclick="showGames()">
+    ← BACK TO GAMES
+  </button>
+
+  <div class="missing-game">
+    <div class="game-label">GAME 02 · VOCABULARY TRAINING</div>
+
+    <h2>Word Match</h2>
+
+    <p class="game-description">
+      Best used for practising languages and learning new vocabulary.
+    </p>
+
+    <div class="quote-input-area" id="word-input-area">
+      <label>ENTER YOUR 5 REAL WORDS</label>
+
+      <div class="word-entry-list">
+        <input class="real-word-input" type="text" placeholder="Word 1">
+        <input class="real-word-input" type="text" placeholder="Word 2">
+        <input class="real-word-input" type="text" placeholder="Word 3">
+        <input class="real-word-input" type="text" placeholder="Word 4">
+        <input class="real-word-input" type="text" placeholder="Word 5">
+      </div>
+
+      <button class="primary-button" onclick="createWordMatch()">
+        CREATE GAME →
+      </button>
+    </div>
+
+    <div id="word-match-area" style="display:none">
+      <h3>Find the 5 real words</h3>
+      <p class="instruction">
+        Select all five words you originally entered.
+      </p>
+
+      <div id="word-options" class="word-options"></div>
+
+      <div class="game-actions">
+        <button class="primary-button" onclick="checkWordMatch()">
+          CHECK ANSWERS
+        </button>
+        <button class="secondary-button" onclick="resetWordMatch()">
+          TRY AGAIN
+        </button>
+      </div>
+
+      <div id="word-results" class="results" style="display:none"></div>
+    </div>
+  </div>
+</main>
+
 
   <script>
     // PAGE NAVIGATION
