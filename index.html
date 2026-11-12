@@ -107,6 +107,12 @@
       document.getElementById("home").style.display = "block";
     }
 
+    function showGames() {
+    document.getElementById("home").style.display = "none";
+    document.getElementById("games").style.display = "block";
+    document.getElementById("selected-game").style.display = "none";
+    }
+
 
 <main class="selected-game" id="selected-game" style="display:none">
     <button class="back-button" onclick="showGames()">← BACK TO GAMES</button>
