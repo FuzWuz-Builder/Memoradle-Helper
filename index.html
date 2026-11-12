@@ -107,11 +107,44 @@
       document.getElementById("home").style.display = "block";
     }
 
-    function selectGame(name) {
-      document.getElementById("selected-title").textContent = name;
-      document.getElementById("selected-description").textContent =
-        "You've selected " + name + "! The game is coming soon.";
-      document.getElementById("selected-game").style.display = "block";
+
+<main class="selected-game" id="selected-game" style="display:none">
+    <button class="back-button" onclick="showGames()">← BACK TO GAMES</button>
+
+    <div class="missing-game">
+        <div class="game-label">GAME 03 · MEMORY TRAINING</div>
+        <h2>Missing Words</h2>
+        <p class="game-description">
+            Enter a quote, memorise it, then fill in the missing words!
+        </p>
+
+        <div class="quote-input-area">
+            <label for="quoteInput">YOUR QUOTE</label>
+            <textarea id="quoteInput" placeholder="Paste or type your quote here..."></textarea>
+            <button class="primary-button" onclick="createChallenge()">
+                CREATE CHALLENGE →
+            </button>
+        </div>
+
+        <div id="challengeArea" style="display:none">
+            <h3>Complete the quote</h3>
+            <p class="instruction">Fill in the missing words below.</p>
+            <div id="quoteDisplay" class="quote-display"></div>
+
+            <div class="game-actions">
+                <button class="primary-button" onclick="checkAnswers()">
+                    CHECK ANSWERS
+                </button>
+                <button class="secondary-button" onclick="createChallenge()">
+                    TRY AGAIN
+                </button>
+            </div>
+
+            <div id="results" class="results" style="display:none"></div>
+        </div>
+    </div>
+</main>
+
     }
   </script>
 
