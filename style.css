@@ -380,3 +380,80 @@ body {
         padding: 20px 10px;
     }
 }
+
+/* WORD MATCH GAME */
+
+.word-entry-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.real-word-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: #0b1b32;
+  color: white;
+  border: 1px solid #45678c;
+  border-radius: 9px;
+  padding: 14px;
+  font: inherit;
+  font-size: 16px;
+  outline: none;
+}
+
+.real-word-input:focus {
+  border-color: #8fc8ff;
+}
+
+.word-options {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.word-option {
+  background: linear-gradient(145deg, #142d50, #1d416c);
+  color: white;
+  border: 1px solid #34577e;
+  border-radius: 10px;
+  padding: 17px 8px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+  overflow-wrap: anywhere;
+}
+
+.word-option:hover {
+  border-color: #8fc8ff;
+  transform: translateY(-2px);
+}
+
+.word-option.word-selected {
+  background: #245b91;
+  border: 2px solid #8fc8ff;
+}
+
+.word-option.word-correct {
+  background: #123e3a;
+  border: 2px solid #42c98a;
+}
+
+.word-option.word-wrong {
+  background: #47252e;
+  border: 2px solid #e77979;
+}
+
+@media (max-width: 600px) {
+  .word-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .word-entry-list {
+    grid-template-columns: 1fr;
+  }
+}
