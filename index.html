@@ -67,7 +67,7 @@ Turn tedious memorization into an addictive adventure with Memorable Helper! Whe
       <div class="game-card" onclick="selectGame('Memory Challenge')">
         <div class="game-label">GAME 04</div>
         <h2>Memory Challenge</h2>
-        <p>Challenge your memory and improve your recall.</p>
+        <p>Create your own flashcards and test how well you remember definitions.</p>
         <span>COMING SOON →</span>
       </div>
 
@@ -185,6 +185,90 @@ Turn tedious memorization into an addictive adventure with Memorable Helper! Whe
       </div>
     </div>
   </main>
+
+<!-- MEMORY CHALLENGE GAME -->
+<main class="selected-game" id="memory-game" style="display:none">
+
+  <button class="back-button" onclick="showGames()">← BACK TO GAMES</button>
+
+  <div class="missing-game">
+    <div class="game-label">GAME 04 · FLASHCARD TRAINING</div>
+    <h2>Memory Challenge</h2>
+
+    <p class="game-description">
+      Create your own flashcards to practise words, definitions and important information.
+    </p>
+
+    <!-- WORD AND DEFINITION INPUTS -->
+    <div id="flashcard-setup" class="quote-input-area">
+
+      <div id="flashcard-inputs">
+
+        <div class="flashcard-entry">
+          <input class="flashcard-word" type="text" placeholder="Enter a word">
+          <textarea class="flashcard-definition" placeholder="Enter its definition"></textarea>
+        </div>
+
+        <div class="flashcard-entry">
+          <input class="flashcard-word" type="text" placeholder="Enter a word">
+          <textarea class="flashcard-definition" placeholder="Enter its definition"></textarea>
+        </div>
+
+      </div>
+
+      <button class="secondary-button" onclick="addFlashcardInput()">
+        + ADD ANOTHER WORD
+      </button>
+
+      <button class="primary-button" onclick="createFlashcards()">
+        CREATE FLASHCARDS →
+      </button>
+
+    </div>
+
+    <!-- FLASHCARD DISPLAY -->
+    <div id="flashcard-area" style="display:none">
+
+      <p class="instruction" id="flashcard-progress">
+        Card 1 of 1
+      </p>
+
+      <div class="flashcard" id="flashcard" onclick="flipFlashcard()">
+
+        <div class="flashcard-inner" id="flashcard-inner">
+
+          <div class="flashcard-front">
+            <span class="flashcard-label">WORD</span>
+            <h2 id="flashcard-question">Word</h2>
+            <p>Click to reveal definition</p>
+          </div>
+
+          <div class="flashcard-back">
+            <span class="flashcard-label">DEFINITION</span>
+            <p id="flashcard-answer">Definition</p>
+            <p>Click to see the word again</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="game-actions">
+        <button class="primary-button" onclick="nextFlashcard()">
+          NEXT CARD →
+        </button>
+
+        <button class="secondary-button" onclick="restartFlashcards()">
+          SHUFFLE AGAIN
+        </button>
+      </div>
+
+      <button class="secondary-button" onclick="editFlashcards()">
+        EDIT WORDS
+      </button>
+
+    </div>
+  </div>
+</main>
 
 
   <script src="script.js"></script>
