@@ -269,7 +269,43 @@ Turn tedious memorization into an addictive adventure with Memorable Helper! Whe
     </div>
   </div>
 </main>
+<main class="selected-game" id="quote-quest-game" style="display:none">
 
+  <button class="back-button" onclick="showGames()">← BACK TO GAMES</button>
+
+  <h1>Quote Quest: Spot the Mistake</h1>
+  <p>Find the incorrect words hidden in your quotes!</p>
+
+  <div id="quote-setup">
+    <h2>Enter your quotes</h2>
+    <p>Enter one quote in each box. You can add as many as you want.</p>
+
+    <div id="quote-inputs">
+      <textarea class="quest-quote-input" placeholder="Enter your first quote..."></textarea>
+      <textarea class="quest-quote-input" placeholder="Enter your second quote..."></textarea>
+    </div>
+
+    <button onclick="addQuestQuote()">+ ADD ANOTHER QUOTE</button>
+    <button onclick="startQuoteQuest()">START CHALLENGE</button>
+  </div>
+
+  <div id="quote-quest-area" style="display:none">
+    <p id="quote-quest-progress"></p>
+    <p>Click every word you think has been changed.</p>
+
+    <div id="quote-quest-cards"></div>
+
+    <button onclick="checkQuoteQuest()">CHECK ANSWERS</button>
+    <div id="quote-quest-results"></div>
+
+    <button id="quote-quest-retry" onclick="retryQuoteQuest()" style="display:none">
+      TRY AGAIN
+    </button>
+
+    <button onclick="editQuestQuotes()">EDIT QUOTES</button>
+  </div>
+
+</main>
 
   <script src="script.js"></script>
 </body>
