@@ -1,41 +1,49 @@
 
+// ==================================
 // PAGE NAVIGATION
+// ==================================
 
-function showGames() {
+function hideAllPages() {
   document.getElementById("home").style.display = "none";
-  document.getElementById("games").style.display = "block";
+  document.getElementById("games").style.display = "none";
   document.getElementById("selected-game").style.display = "none";
   document.getElementById("word-match-game").style.display = "none";
 }
 
 function showHome() {
-  document.getElementById("games").style.display = "none";
+  hideAllPages();
   document.getElementById("home").style.display = "flex";
-  document.getElementById("selected-game").style.display = "none";
-  document.getElementById("word-match-game").style.display = "none";
+}
+
+function showGames() {
+  hideAllPages();
+  document.getElementById("games").style.display = "block";
 }
 
 function selectGame(name) {
-  document.getElementById("games").style.display = "none";
-  document.getElementById("selected-game").style.display =
-    name === "Missing Words" ? "block" : "none";
-  document.getElementById("word-match-game").style.display =
-    name === "Word Match" ? "block" : "none";
+  hideAllPages();
 
-  if (name !== "Missing Words" && name !== "Word Match") {
+  if (name === "Missing Words") {
+    document.getElementById("selected-game").style.display = "block";
+  } else if (name === "Word Match") {
+    document.getElementById("word-match-game").style.display = "block";
+  } else {
     document.getElementById("games").style.display = "block";
     alert(name + " is coming soon!");
   }
 }
 
 
+// ==================================
 // MISSING WORDS GAME
+// ==================================
 
 let challengeWords = [];
 let missingIndexes = [];
 
 function createChallenge() {
-  const quote = document.getElementById("quoteInput").value.trim();
+  const quoteInput = document.getElementById("quoteInput");
+  const quote = quoteInput.value.trim();
 
   if (!quote) {
     alert("Please enter a quote first!");
@@ -49,14 +57,19 @@ function createChallenge() {
     return;
   }
 
-  const indexes = challengeWords.map((_, i) => i);
+  // Randomly choose half the words
+  const indexes = challengeWords.map((word, index) => index);
 
   for (let i = indexes.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [indexes[i], indexes[j]] = [indexes[j], indexes[i]];
   }
 
-  missingIndexes = indexes.slice(0, Math.ceil(challengeWords.length / 2));
+  missingIndexes = indexes.slice(
+    0,
+    Math.ceil(challengeWords.length / 2)
+  );
+
   missingIndexes.sort((a, b) => a - b);
 
   const display = document.getElementById("quoteDisplay");
@@ -65,11 +78,13 @@ function createChallenge() {
   challengeWords.forEach((word, index) => {
     if (missingIndexes.includes(index)) {
       const input = document.createElement("input");
+
       input.type = "text";
       input.className = "missing-input";
       input.placeholder = "?";
       input.dataset.index = index;
       input.autocomplete = "off";
+
       display.appendChild(input);
     } else {
       const text = document.createElement("span");
@@ -78,13 +93,16 @@ function createChallenge() {
     }
   });
 
-  document.querySelector(".quote-input-area").style.display = "none";
+  document.querySelector("#selected-game .quote-input-area").style.display = "none";
   document.getElementById("challengeArea").style.display = "block";
   document.getElementById("results").style.display = "none";
 }
 
 function normaliseWord(word) {
-  return word.toLowerCase().replace(/[.,!?;:"“”‘’()]/g, "").trim();
+  return word
+    .toLowerCase()
+    .replace(/[.,!?;:"“”‘’()]/g, "")
+    .trim();
 }
 
 function checkAnswers() {
@@ -114,22 +132,36 @@ function checkAnswers() {
   results.appendChild(score);
 
   const message = document.createElement("p");
-  message.textContent = correct === missingIndexes.length
-    ? "Perfect! You remembered every missing word!"
-    : "Good effort! Check the highlighted answers and try again.";
+  message.textContent =
+    correct === missingIndexes.length
+      ? "Perfect! You remembered every missing word!"
+      : "Good effort! Check the highlighted answers and try again.";
+
   results.appendChild(message);
 
   const answers = document.createElement("p");
-  answers.className = "correct-answers";
-  answers.textContent = "Correct answers: " +
-    missingIndexes.map(i => challengeWords[i]).join(", ");
-  results.appendChild(answers);
+  answers.textContent =
+    "Correct answers: " +
+    missingIndexes.map(index => challengeWords[index]).join(", ");
 
+  results.appendChild(answers);
   results.style.display = "block";
 }
 
+function resetMissingWords() {
+  challengeWords = [];
+  missingIndexes = [];
 
+  document.getElementById("quoteInput").value = "";
+  document.querySelector("#selected-game .quote-input-area").style.display = "block";
+  document.getElementById("challengeArea").style.display = "none";
+  document.getElementById("results").style.display = "none";
+}
+
+
+// ==================================
 // WORD MATCH GAME
+// ==================================
 
 let wordMatchWords = [];
 
@@ -137,13 +169,8 @@ function createWordMatch() {
   const inputs = document.querySelectorAll(".real-word-input");
   const words = Array.from(inputs).map(input => input.value.trim());
 
-  if (words.some(word => !word)) {
+  if (words.some(word => word === "")) {
     alert("Please enter all 5 words!");
-    return;
-  }
-
-  if (new Set(words.map(word => word.toLowerCase())).size !== 5) {
-    alert("Please enter 5 different words!");
     return;
   }
 
@@ -152,52 +179,89 @@ function createWordMatch() {
     return;
   }
 
+  const uniqueWords = new Set(words.map(word => word.toLowerCase()));
+
+  if (uniqueWords.size !== 5) {
+    alert("Please enter 5 different words!");
+    return;
+  }
+
   wordMatchWords = words;
+  buildWordMatchRound();
+
   document.getElementById("word-input-area").style.display = "none";
   document.getElementById("word-match-area").style.display = "block";
-
-  buildWordMatchRound();
 }
 
 function buildWordMatchRound() {
   const options = [];
-  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const usedWords = new Set(
+    wordMatchWords.map(word => word.toLowerCase())
+  );
 
+  // Add the five real words
   wordMatchWords.forEach(word => {
     options.push({ word: word, real: true });
   });
 
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+  // Generate fake words by changing one letter
   wordMatchWords.forEach(word => {
     let created = 0;
-    let attempts = 0;
 
-    while (created < 3 && attempts < 200) {
-      attempts++;
+    for (let position = 0; position < word.length && created < 3; position++) {
+      for (let letter of alphabet) {
+        if (created >= 3) break;
 
-      const letters = word.split("");
-      const position = Math.floor(Math.random() * letters.length);
-      const originalLetter = letters[position].toLowerCase();
+        const letters = word.split("");
 
-      let newLetter = originalLetter;
+        if (letters[position].toLowerCase() === letter) {
+          continue;
+        }
 
-      while (newLetter === originalLetter) {
-        newLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
-      }
+        letters[position] = letter;
 
-      letters[position] = newLetter;
-      const fakeWord = letters.join("");
+        const fakeWord = letters.join("");
+        const key = fakeWord.toLowerCase();
 
-      const alreadyUsed = options.some(
-        option => option.word.toLowerCase() === fakeWord.toLowerCase()
-      );
-
-      if (!alreadyUsed) {
-        options.push({ word: fakeWord, real: false });
-        created++;
+        if (!usedWords.has(key)) {
+          usedWords.add(key);
+          options.push({ word: fakeWord, real: false });
+          created++;
+        }
       }
     }
   });
 
+  // If there aren't enough unique one-letter fakes,
+  // make additional fake words with two changed letters.
+  let attempts = 0;
+
+  while (options.length < 20 && attempts < 2000) {
+    attempts++;
+
+    const source = wordMatchWords[
+      Math.floor(Math.random() * wordMatchWords.length)
+    ];
+
+    const letters = source.split("");
+    const first = Math.floor(Math.random() * letters.length);
+    const second = Math.floor(Math.random() * letters.length);
+
+    letters[first] = alphabet[Math.floor(Math.random() * alphabet.length)];
+    letters[second] = alphabet[Math.floor(Math.random() * alphabet.length)];
+
+    const fakeWord = letters.join("");
+    const key = fakeWord.toLowerCase();
+
+    if (!usedWords.has(key)) {
+      usedWords.add(key);
+      options.push({ word: fakeWord, real: false });
+    }
+  }
+
+  // Shuffle the options
   for (let i = options.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [options[i], options[j]] = [options[j], options[i]];
@@ -208,23 +272,28 @@ function buildWordMatchRound() {
 
   options.forEach(option => {
     const button = document.createElement("button");
+
+    button.type = "button";
     button.className = "word-option";
     button.textContent = option.word;
     button.dataset.real = option.real;
-    button.type = "button";
 
     button.addEventListener("click", () => {
+      if (container.dataset.checked === "true") return;
       button.classList.toggle("word-selected");
     });
 
     container.appendChild(button);
   });
 
+  container.dataset.checked = "false";
   document.getElementById("word-results").style.display = "none";
 }
 
 function checkWordMatch() {
+  const container = document.getElementById("word-options");
   const options = document.querySelectorAll(".word-option");
+
   let correct = 0;
   let fakeSelected = 0;
   const missedWords = [];
@@ -247,6 +316,8 @@ function checkWordMatch() {
     }
   });
 
+  container.dataset.checked = "true";
+
   const results = document.getElementById("word-results");
   results.replaceChildren();
 
@@ -255,10 +326,14 @@ function checkWordMatch() {
   results.appendChild(score);
 
   const message = document.createElement("p");
-  message.textContent =
-    correct === 5 && fakeSelected === 0
-      ? "Perfect! You found all 5 real words!"
-      : `You found ${correct} real words and selected ${fakeSelected} fake words.`;
+
+  if (correct === 5 && fakeSelected === 0) {
+    message.textContent = "Perfect! You found all 5 real words!";
+  } else {
+    message.textContent =
+      `You found ${correct} real words and selected ${fakeSelected} fake words.`;
+  }
+
   results.appendChild(message);
 
   if (missedWords.length > 0) {
@@ -272,4 +347,17 @@ function checkWordMatch() {
 
 function resetWordMatch() {
   buildWordMatchRound();
+}
+
+function resetWordMatchSetup() {
+  document.querySelectorAll(".real-word-input").forEach(input => {
+    input.value = "";
+  });
+
+  document.getElementById("word-input-area").style.display = "block";
+  document.getElementById("word-match-area").style.display = "none";
+  document.getElementById("word-results").style.display = "none";
+  document.getElementById("word-options").replaceChildren();
+
+  wordMatchWords = [];
 }
