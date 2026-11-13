@@ -5,114 +5,98 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memoradle Helper</title>
+
   <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-  <!-- HOMEPAGE -->
+  <!-- HOME PAGE -->
   <main class="hero" id="home">
+    <div class="game-label">STUDY SMARTER</div>
     <h1>Memoradle Helper</h1>
-    <h2>Make memorising easier. Make learning fun.</h2>
-
-    <p>
-      Welcome to Memoradle Helper, a smarter and more enjoyable
-      way to learn, practise and remember information. Whether
-      you're studying important quotes, learning new vocabulary
-      or preparing for an upcoming test, Memoradle Helper turns
-      your study material into interactive games designed to
-      improve your memory. Simply enter your words, quotes or
-      notes and let the platform transform them into engaging
-      challenges. Instead of repeatedly reading the same
-      information, you can test yourself, recognise patterns
-      and strengthen your understanding through play.
-      Learning doesn't have to be boring. Start remembering
-      more, build your confidence and make every study session
-      count with Memoradle Helper.
+    <p class="game-description">
+      Make memorising easier. Make learning fun.
     </p>
-
-    <button class="start-button" onclick="showGames()">
-      GET STARTED
+    <p>
+      Practise quotes, learn vocabulary and improve your memory
+      with interactive study games.
+    </p>
+    <button class="primary-button" onclick="showGames()">
+      GET STARTED →
     </button>
-
-    <div class="tagline">
-      LEARN SMARTER. REMEMBER LONGER.
-    </div>
   </main>
 
 
   <!-- GAMES PAGE -->
   <main class="games-page" id="games" style="display:none">
+    <button class="back-button" onclick="showHome()">← HOME</button>
 
-    <h1>Choose Your Game</h1>
-    <p class="games-subtitle">
-      Pick a challenge and put your memory to the test.
+    <div class="game-label">CHOOSE YOUR GAME</div>
+    <h1>Your Games</h1>
+    <p class="game-description">
+      Choose a game to start practising.
     </p>
 
     <div class="games-grid">
 
-      <button class="game-card" onclick="selectGame('Quote Quest')">
-        <span class="game-number">01</span>
-        <span class="game-icon">✦</span>
+      <div class="game-card" onclick="selectGame('Quote Quest')">
+        <div class="game-label">GAME 01</div>
         <h2>Quote Quest</h2>
-        <p>Master important quotes and their meanings.</p>
-        <span class="play-text">PLAY GAME →</span>
-      </button>
+        <p>Practise remembering important quotes.</p>
+        <span>COMING SOON →</span>
+      </div>
 
-      <button class="game-card" onclick="selectGame('Word Match')">
-        <span class="game-number">02</span>
-        <span class="game-icon">◆</span>
+      <div class="game-card" onclick="selectGame('Word Match')">
+        <div class="game-label">GAME 02</div>
         <h2>Word Match</h2>
-        <p>Match words with their correct definitions.</p>
-        <span class="play-text">PLAY GAME →</span>
-      </button>
+        <p>Best used for practising languages and learning new vocabulary.</p>
+        <span>PLAY NOW →</span>
+      </div>
 
-      <button class="game-card" onclick="selectGame('Missing Words')">
-        <span class="game-number">03</span>
-        <span class="game-icon">✎</span>
+      <div class="game-card" onclick="selectGame('Missing Words')">
+        <div class="game-label">GAME 03</div>
         <h2>Missing Words</h2>
-        <p>Fill in the blanks and test what you remember.</p>
-        <span class="play-text">PLAY GAME →</span>
-      </button>
+        <p>Test your memory by filling in missing words from a quote.</p>
+        <span>PLAY NOW →</span>
+      </div>
 
-      <button class="game-card" onclick="selectGame('Memory Challenge')">
-        <span class="game-number">04</span>
-        <span class="game-icon">⚡</span>
+      <div class="game-card" onclick="selectGame('Memory Challenge')">
+        <div class="game-label">GAME 04</div>
         <h2>Memory Challenge</h2>
-        <p>Challenge yourself to remember key information.</p>
-        <span class="play-text">PLAY GAME →</span>
-      </button>
+        <p>Challenge your memory and improve your recall.</p>
+        <span>COMING SOON →</span>
+      </div>
 
     </div>
-
-    <button class="back-button" onclick="showHome()">
-      ← BACK TO HOME
-    </button>
-
   </main>
 
 
   <!-- MISSING WORDS GAME -->
   <main class="selected-game" id="selected-game" style="display:none">
 
-    <button class="back-button" onclick="showGames()">
-      ← BACK TO GAMES
-    </button>
+    <button class="back-button" onclick="showGames()">← BACK TO GAMES</button>
 
     <div class="missing-game">
       <div class="game-label">GAME 03 · MEMORY TRAINING</div>
-
       <h2>Missing Words</h2>
 
       <p class="game-description">
-        Enter a quote, memorise it, then fill in the missing words!
+        Test how well you can remember quotes by filling in the missing words.
       </p>
 
       <div class="quote-input-area">
-        <label for="quoteInput">YOUR QUOTE</label>
+        <label for="quoteInput">ENTER YOUR QUOTE</label>
 
-        <textarea id="quoteInput" placeholder="Paste or type your quote here..."></textarea>
+        <textarea
+          id="quoteInput"
+          placeholder="Paste or type your quote here..."
+          rows="5"
+        ></textarea>
 
         <button class="primary-button" onclick="createChallenge()">
           CREATE CHALLENGE →
@@ -120,10 +104,9 @@
       </div>
 
       <div id="challengeArea" style="display:none">
-        <h3>Complete the quote</h3>
-
+        <h3>Fill in the missing words</h3>
         <p class="instruction">
-          Fill in the missing words below.
+          Complete the quote by typing the missing words.
         </p>
 
         <div id="quoteDisplay" class="quote-display"></div>
@@ -136,203 +119,75 @@
           <button class="secondary-button" onclick="createChallenge()">
             TRY AGAIN
           </button>
+
+          <button class="secondary-button" onclick="resetMissingWords()">
+            NEW QUOTE
+          </button>
         </div>
 
         <div id="results" class="results" style="display:none"></div>
       </div>
     </div>
-
   </main>
 
-<!-- WORD MATCH GAME -->
-<main class="selected-game" id="word-match-game" style="display:none">
 
-  <button class="back-button" onclick="showGames()">
-    ← BACK TO GAMES
-  </button>
+  <!-- WORD MATCH GAME -->
+  <main class="selected-game" id="word-match-game" style="display:none">
 
-  <div class="missing-game">
-    <div class="game-label">GAME 02 · VOCABULARY TRAINING</div>
+    <button class="back-button" onclick="showGames()">← BACK TO GAMES</button>
 
-    <h2>Word Match</h2>
+    <div class="missing-game">
+      <div class="game-label">GAME 02 · VOCABULARY TRAINING</div>
+      <h2>Word Match</h2>
 
-    <p class="game-description">
-      Best used for practising languages and learning new vocabulary.
-    </p>
-
-    <div class="quote-input-area" id="word-input-area">
-      <label>ENTER YOUR 5 REAL WORDS</label>
-
-      <div class="word-entry-list">
-        <input class="real-word-input" type="text" placeholder="Word 1">
-        <input class="real-word-input" type="text" placeholder="Word 2">
-        <input class="real-word-input" type="text" placeholder="Word 3">
-        <input class="real-word-input" type="text" placeholder="Word 4">
-        <input class="real-word-input" type="text" placeholder="Word 5">
-      </div>
-
-      <button class="primary-button" onclick="createWordMatch()">
-        CREATE GAME →
-      </button>
-    </div>
-
-    <div id="word-match-area" style="display:none">
-      <h3>Find the 5 real words</h3>
-      <p class="instruction">
-        Select all five words you originally entered.
+      <p class="game-description">
+        Best used for practising languages and learning new vocabulary.
       </p>
 
-      <div id="word-options" class="word-options"></div>
+      <div class="quote-input-area" id="word-input-area">
+        <label>ENTER YOUR 5 REAL WORDS</label>
 
-      <div class="game-actions">
-        <button class="primary-button" onclick="checkWordMatch()">
-          CHECK ANSWERS
-        </button>
-        <button class="secondary-button" onclick="resetWordMatch()">
-          TRY AGAIN
+        <div class="word-entry-list">
+          <input class="real-word-input" type="text" placeholder="Word 1">
+          <input class="real-word-input" type="text" placeholder="Word 2">
+          <input class="real-word-input" type="text" placeholder="Word 3">
+          <input class="real-word-input" type="text" placeholder="Word 4">
+          <input class="real-word-input" type="text" placeholder="Word 5">
+        </div>
+
+        <button class="primary-button" onclick="createWordMatch()">
+          CREATE GAME →
         </button>
       </div>
 
-      <div id="word-results" class="results" style="display:none"></div>
+      <div id="word-match-area" style="display:none">
+        <h3>Find the 5 real words</h3>
+        <p class="instruction">
+          Select all five words you originally entered.
+        </p>
+
+        <div id="word-options" class="word-options"></div>
+
+        <div class="game-actions">
+          <button class="primary-button" onclick="checkWordMatch()">
+            CHECK ANSWERS
+          </button>
+
+          <button class="secondary-button" onclick="resetWordMatch()">
+            TRY AGAIN
+          </button>
+
+          <button class="secondary-button" onclick="resetWordMatchSetup()">
+            NEW WORDS
+          </button>
+        </div>
+
+        <div id="word-results" class="results" style="display:none"></div>
+      </div>
     </div>
-  </div>
-</main>
+  </main>
 
 
-  <script>
-    // PAGE NAVIGATION
-
-    function showGames() {
-      document.getElementById("home").style.display = "none";
-      document.getElementById("games").style.display = "block";
-      document.getElementById("selected-game").style.display = "none";
-    }
-
-    function showHome() {
-      document.getElementById("home").style.display = "flex";
-      document.getElementById("games").style.display = "none";
-      document.getElementById("selected-game").style.display = "none";
-    }
-
-    function selectGame(name) {
-      if (name === "Missing Words") {
-        document.getElementById("games").style.display = "none";
-        document.getElementById("selected-game").style.display = "block";
-      } else {
-        alert(name + " is coming soon!");
-      }
-    }
-
-
-    // MISSING WORDS GAME
-
-    let challengeWords = [];
-    let missingIndexes = [];
-
-    function createChallenge() {
-      const quote = document.getElementById("quoteInput").value.trim();
-
-      if (!quote) {
-        alert("Please enter a quote first!");
-        return;
-      }
-
-      challengeWords = quote.split(/\s+/);
-
-      if (challengeWords.length < 2) {
-        alert("Please enter a longer quote!");
-        return;
-      }
-
-      const indexes = challengeWords.map((_, i) => i);
-
-      for (let i = indexes.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [indexes[i], indexes[j]] = [indexes[j], indexes[i]];
-      }
-
-      missingIndexes = indexes.slice(
-        0,
-        Math.ceil(challengeWords.length / 2)
-      );
-
-      missingIndexes.sort((a, b) => a - b);
-
-      const display = document.getElementById("quoteDisplay");
-      display.replaceChildren();
-
-      challengeWords.forEach((word, index) => {
-        if (missingIndexes.includes(index)) {
-          const input = document.createElement("input");
-          input.type = "text";
-          input.className = "missing-input";
-          input.placeholder = "?";
-          input.dataset.index = index;
-          input.autocomplete = "off";
-          display.appendChild(input);
-        } else {
-          const text = document.createElement("span");
-          text.textContent = word + " ";
-          display.appendChild(text);
-        }
-      });
-
-      document.getElementById("challengeArea").style.display = "block";
-      document.getElementById("results").style.display = "none";
-    }
-
-    function normaliseWord(word) {
-      return word
-        .toLowerCase()
-        .replace(/[.,!?;:"“”‘’()]/g, "")
-        .trim();
-    }
-
-    function checkAnswers() {
-      const inputs = document.querySelectorAll(".missing-input");
-      let correct = 0;
-
-      inputs.forEach(input => {
-        const index = Number(input.dataset.index);
-        const answer = normaliseWord(input.value);
-        const correctAnswer = normaliseWord(challengeWords[index]);
-
-        if (answer === correctAnswer) {
-          correct++;
-          input.classList.add("answer-correct");
-          input.classList.remove("answer-wrong");
-        } else {
-          input.classList.add("answer-wrong");
-          input.classList.remove("answer-correct");
-        }
-      });
-
-      const total = missingIndexes.length;
-      const results = document.getElementById("results");
-
-      results.replaceChildren();
-
-      const score = document.createElement("h3");
-      score.textContent = `Your score: ${correct} / ${total}`;
-      results.appendChild(score);
-
-      const message = document.createElement("p");
-      message.textContent =
-        correct === total
-          ? "Perfect! You remembered every missing word!"
-          : "Good effort! Check the highlighted answers and try again.";
-      results.appendChild(message);
-
-      const answers = document.createElement("p");
-      answers.className = "correct-answers";
-      answers.textContent = "Correct answers: " +
-        missingIndexes.map(i => challengeWords[i]).join(", ");
-      results.appendChild(answers);
-
-      results.style.display = "block";
-    }
-
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
