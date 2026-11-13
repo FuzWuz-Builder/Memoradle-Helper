@@ -475,3 +475,212 @@ function editFlashcards() {
   document.getElementById("flashcard-setup").style.display = "block";
   document.getElementById("flashcard-area").style.display = "none";
 }
+// QUOTE QUEST: SPOT THE MISTAKE
+
+let questQuotes = [];
+let questRounds = [];
+let questChecked = false;
+
+function addQuestQuote() {
+  const inputs = document.getElementById("quote-inputs");
+
+  const textarea = document.createElement("textarea");
+  textarea.className = "quest-quote-input";
+  textarea.placeholder = "Enter another quote...";
+
+  inputs.appendChild(textarea);
+}
+
+function startQuoteQuest() {
+  const inputs = document.querySelectorAll(".quest-quote-input");
+
+  questQuotes = Array.from(inputs)
+    .map(input => input.value.trim())
+    .filter(quote => quote.length > 0);
+
+  if (questQuotes.length === 0) {
+    alert("Please enter at least one quote!");
+    return;
+  }
+
+  if (questQuotes.some(quote => quote.split(/\s+/).length < 5)) {
+    alert("Each quote needs at least 5 words.");
+    return;
+  }
+
+  document.getElementById("quote-setup").style.display = "none";
+  document.getElementById("quote-quest-area").style.display = "block";
+
+  makeQuoteQuestRound();
+}
+
+function makeQuoteQuestRound() {
+  questChecked = false;
+  questRounds = questQuotes.map(quote => {
+    const words = quote.split(/\s+/);
+
+    const eligible = words
+      .map((word, index) => ({ word, index }))
+      .filter(item => /^[A-Za-z][A-Za-z'-]{3,}[.,!?;:]?$/.test(item.word));
+
+    const shuffled = [...eligible].sort(() => Math.random() - 0.5);
+    const amount = Math.min(
+      eligible.length,
+      Math.floor(Math.random() * 3) + 2
+    );
+
+    const changedIndexes = shuffled
+      .slice(0, amount)
+      .map(item => item.index);
+
+    const changedWords = words.map((word, index) => {
+      if (!changedIndexes.includes(index)) return word;
+
+      return replaceQuestWord(word);
+    });
+
+    return {
+      original: words,
+      displayed: changedWords,
+      changedIndexes,
+      selected: []
+    };
+  });
+
+  document.getElementById("quote-quest-results").innerHTML = "";
+  document.getElementById("quote-quest-retry").style.display = "none";
+
+  document.getElementById("quote-quest-progress").textContent =
+    questQuotes.length + " quotes to complete";
+
+  displayQuestQuotes();
+}
+
+function replaceQuestWord(word) {
+  const replacements = [
+    "honour", "deceive", "fortune", "betray",
+    "mystery", "danger", "silence", "beauty",
+    "powerful", "shadow", "friend", "strange",
+    "believe", "wonder", "foolish", "truth"
+  ];
+
+  const match = word.match(/^([A-Za-z][A-Za-z'-]*)([.,!?;:]?)$/);
+
+  if (!match) return word;
+
+  const original = match[1];
+  const punctuation = match[2];
+
+  let replacement = original;
+
+  while (replacement.toLowerCase() === original.toLowerCase()) {
+    replacement = replacements[
+      Math.floor(Math.random() * replacements.length)
+    ];
+  }
+
+  if (original[0] === original[0].toUpperCase()) {
+    replacement =
+      replacement.charAt(0).toUpperCase() + replacement.slice(1);
+  }
+
+  return replacement + punctuation;
+}
+
+function displayQuestQuotes() {
+  const container = document.getElementById("quote-quest-cards");
+  container.innerHTML = "";
+
+  questRounds.forEach((round, quoteIndex) => {
+    const card = document.createElement("div");
+    card.className = "quote-quest-card";
+
+    const heading = document.createElement("h3");
+    heading.textContent = "Quote " + (quoteIndex + 1);
+    card.appendChild(heading);
+
+    const quote = document.createElement("div");
+    quote.className = "quest-words";
+
+    round.displayed.forEach((word, wordIndex) => {
+      const button = document.createElement("button");
+      button.className = "quest-word";
+      button.textContent = word;
+
+      button.onclick = () => {
+        if (questChecked) return;
+
+        const selected = round.selected;
+        const position = selected.indexOf(wordIndex);
+
+        if (position === -1) {
+          selected.push(wordIndex);
+          button.classList.add("quest-word-selected");
+        } else {
+          selected.splice(position, 1);
+          button.classList.remove("quest-word-selected");
+        }
+      };
+
+      quote.appendChild(button);
+    });
+
+    card.appendChild(quote);
+    container.appendChild(card);
+  });
+}
+
+function checkQuoteQuest() {
+  if (questChecked) return;
+
+  questChecked = true;
+
+  let correctTotal = 0;
+  let selectedTotal = 0;
+  let changedTotal = 0;
+
+  const cards = document.querySelectorAll(".quote-quest-card");
+
+  questRounds.forEach((round, quoteIndex) => {
+    const buttons = cards[quoteIndex].querySelectorAll(".quest-word");
+
+    selectedTotal += round.selected.length;
+    changedTotal += round.changedIndexes.length;
+
+    buttons.forEach((button, wordIndex) => {
+      const shouldSelect = round.changedIndexes.includes(wordIndex);
+      const didSelect = round.selected.includes(wordIndex);
+
+      button.disabled = true;
+
+      if (shouldSelect) {
+        button.classList.add("quest-word-correct");
+      } else if (didSelect) {
+        button.classList.add("quest-word-wrong");
+      }
+
+      if (shouldSelect && didSelect) {
+        correctTotal++;
+      }
+    });
+  });
+
+  const perfect = correctTotal === changedTotal &&
+    selectedTotal === changedTotal;
+
+  document.getElementById("quote-quest-results").innerHTML =
+    "<h2>" + (perfect ? "Perfect!" : "Round complete!") + "</h2>" +
+    "<p>You found " + correctTotal + " out of " +
+    changedTotal + " changed words.</p>";
+
+  document.getElementById("quote-quest-retry").style.display = "inline-block";
+}
+
+function retryQuoteQuest() {
+  makeQuoteQuestRound();
+}
+
+function editQuestQuotes() {
+  document.getElementById("quote-quest-area").style.display = "none";
+  document.getElementById("quote-setup").style.display = "block";
+}
