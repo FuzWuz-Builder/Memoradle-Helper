@@ -8,6 +8,7 @@ function hideAllPages() {
   document.getElementById("games").style.display = "none";
   document.getElementById("selected-game").style.display = "none";
   document.getElementById("word-match-game").style.display = "none";
+  document.getElementById("memory-game").style.display = "none";
 }
 
 function showHome() {
@@ -27,6 +28,8 @@ function selectGame(name) {
     document.getElementById("selected-game").style.display = "block";
   } else if (name === "Word Match") {
     document.getElementById("word-match-game").style.display = "block";
+  } else if (name === "Memory Challenge") {
+    document.getElementById("memory-game").style.display = "block";
   } else {
     document.getElementById("games").style.display = "block";
     alert(name + " is coming soon!");
@@ -360,4 +363,110 @@ function resetWordMatchSetup() {
   document.getElementById("word-options").replaceChildren();
 
   wordMatchWords = [];
+}
+
+// ==================================
+// MEMORY CHALLENGE - FLASHCARDS
+// ==================================
+
+let flashcards = [];
+let flashcardOrder = [];
+let currentFlashcard = 0;
+
+function addFlashcardInput() {
+  const container = document.getElementById("flashcard-inputs");
+
+  const entry = document.createElement("div");
+  entry.className = "flashcard-entry";
+
+  const wordInput = document.createElement("input");
+  wordInput.className = "flashcard-word";
+  wordInput.type = "text";
+  wordInput.placeholder = "Enter a word";
+
+  const definitionInput = document.createElement("textarea");
+  definitionInput.className = "flashcard-definition";
+  definitionInput.placeholder = "Enter its definition";
+
+  const removeButton = document.createElement("button");
+  removeButton.type = "button";
+  removeButton.className = "secondary-button";
+  removeButton.textContent = "REMOVE";
+
+  removeButton.addEventListener("click", () => {
+    entry.remove();
+  });
+
+  entry.append(wordInput, definitionInput, removeButton);
+  container.appendChild(entry);
+}
+
+function createFlashcards() {
+  const entries = document.querySelectorAll(".flashcard-entry");
+
+  const cards = Array.from(entries).map(entry => ({
+    word: entry.querySelector(".flashcard-word").value.trim(),
+    definition: entry.querySelector(".flashcard-definition").value.trim()
+  }));
+
+  if (cards.length === 0 || cards.some(card => !card.word || !card.definition)) {
+    alert("Please fill in every word and definition.");
+    return;
+  }
+
+  flashcards = cards;
+  startFlashcardRound();
+
+  document.getElementById("flashcard-setup").style.display = "none";
+  document.getElementById("flashcard-area").style.display = "block";
+}
+
+function startFlashcardRound() {
+  // Create a shuffled order of all the cards
+  flashcardOrder = flashcards.map((card, index) => index);
+
+  for (let i = flashcardOrder.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcardOrder[i], flashcardOrder[j]] =
+      [flashcardOrder[j], flashcardOrder[i]];
+  }
+
+  currentFlashcard = 0;
+  showFlashcard();
+}
+
+function showFlashcard() {
+  const cardIndex = flashcardOrder[currentFlashcard];
+  const card = flashcards[cardIndex];
+
+  document.getElementById("flashcard-question").textContent = card.word;
+  document.getElementById("flashcard-answer").textContent = card.definition;
+
+  document.getElementById("flashcard-progress").textContent =
+    `Card ${currentFlashcard + 1} of ${flashcards.length}`;
+
+  // Always show the word side first
+  document.getElementById("flashcard-inner").classList.remove("flipped");
+}
+
+function flipFlashcard() {
+  document.getElementById("flashcard-inner").classList.toggle("flipped");
+}
+
+function nextFlashcard() {
+  if (currentFlashcard < flashcardOrder.length - 1) {
+    currentFlashcard++;
+    showFlashcard();
+  } else {
+    alert("You've gone through all your flashcards! Shuffle to practise again.");
+  }
+}
+
+function restartFlashcards() {
+  startFlashcardRound();
+}
+
+function editFlashcards() {
+  document.getElementById("flashcard-setup").style.display = "block";
+  document.getElementById("flashcard-area").style.display = "none";
 }
