@@ -21,20 +21,25 @@ function showGames() {
   document.getElementById("games").style.display = "block";
 }
 
+
 function selectGame(name) {
   hideAllPages();
 
   if (name === "Missing Words") {
     document.getElementById("selected-game").style.display = "block";
+
   } else if (name === "Word Match") {
     document.getElementById("word-match-game").style.display = "block";
+
   } else if (name === "Memory Challenge") {
     document.getElementById("memory-game").style.display = "block";
+
   } else {
     document.getElementById("games").style.display = "block";
     alert(name + " is coming soon!");
   }
 }
+
 
 
 // ==================================
