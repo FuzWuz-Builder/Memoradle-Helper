@@ -9,6 +9,7 @@ function hideAllPages() {
   document.getElementById("selected-game").style.display = "none";
   document.getElementById("word-match-game").style.display = "none";
   document.getElementById("memory-game").style.display = "none";
+  document.getElementById("quote-quest-game").style.display = "none";
 }
 
 function showHome() {
@@ -34,12 +35,14 @@ function selectGame(name) {
   } else if (name === "Memory Challenge") {
     document.getElementById("memory-game").style.display = "block";
 
+  } else if (name === "Quote Quest") {
+    document.getElementById("quote-quest-game").style.display = "block";
+
   } else {
     document.getElementById("games").style.display = "block";
     alert(name + " is coming soon!");
   }
 }
-
 
 
 // ==================================
