@@ -590,240 +590,110 @@ body {
   }
 }
 
-/* ==============================
-   QUOTE QUEST - NEW DESIGN
-================================ */
+/* QUOTE QUEST */
 
 #quote-quest-game {
-  font-family: 'Inter', sans-serif;
-  color: #eaf2ff;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 35px 24px;
+  font-family: inherit;
+  color: inherit;
 }
 
-#quote-quest-game h1 {
-  font-size: clamp(28px, 4vw, 40px);
-  font-weight: 800;
-  letter-spacing: -1.2px;
-  margin: 25px 0 10px;
-  color: #f4f8ff;
-}
-
-#quote-quest-game h2 {
-  font-size: 23px;
-  font-weight: 750;
-  color: #f4f8ff;
-}
-
+#quote-quest-game h1,
+#quote-quest-game h2,
+#quote-quest-game h3,
 #quote-quest-game p {
-  color: #9fb4cf;
-  line-height: 1.7;
-  font-size: 15px;
+  font-family: inherit;
 }
 
-/* Setup area */
+.quest-quote-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: #0b1b32;
+  color: white;
+  border: 1px solid #45678c;
+  border-radius: 9px;
+  padding: 14px;
+  font: inherit;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
 
-#quote-setup {
-  background: linear-gradient(145deg, #112744, #0d1e35);
-  border: 1px solid #29466a;
-  border-radius: 18px;
-  padding: 28px;
-  margin-top: 30px;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
+.quest-quote-input:focus {
+  outline: none;
+  border-color: #8fc8ff;
 }
 
 #quote-inputs {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin: 24px 0;
+  gap: 10px;
+  margin-bottom: 20px;
 }
-
-.quest-quote-input {
-  width: 100%;
-  min-height: 95px;
-  box-sizing: border-box;
-  background: #09182b;
-  color: #edf5ff;
-  border: 1px solid #2c4869;
-  border-radius: 12px;
-  padding: 16px;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  resize: vertical;
-  transition: border 0.2s, box-shadow 0.2s;
-}
-
-.quest-quote-input::placeholder {
-  color: #7187a3;
-}
-
-.quest-quote-input:focus {
-  outline: none;
-  border-color: #55a5ff;
-  box-shadow: 0 0 0 3px rgba(85, 165, 255, 0.12);
-}
-
-/* Main buttons */
-
-#quote-quest-game button {
-  font-family: 'Inter', sans-serif;
-  font-weight: 650;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-#quote-setup > button,
-#quote-quest-area > button {
-  background: #287bd8;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 13px 20px;
-  margin: 7px 7px 7px 0;
-  font-size: 13px;
-  letter-spacing: 0.3px;
-}
-
-#quote-setup > button:hover,
-#quote-quest-area > button:hover {
-  background: #4094f0;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(40, 123, 216, 0.2);
-}
-
-/* Quote cards */
 
 .quote-quest-card {
-  background: linear-gradient(145deg, #122b49, #0e2038);
-  border: 1px solid #29496d;
-  border-radius: 16px;
-  padding: 23px;
-  margin: 20px 0;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  background: #102541;
+  border: 1px solid #34577e;
+  border-radius: 12px;
+  padding: 18px;
+  margin: 18px 0;
 }
 
 .quote-quest-card h3 {
-  color: #78baff;
-  font-size: 14px;
-  font-weight: 750;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin: 0 0 18px;
+  margin-top: 0;
 }
-
-/* Individual words */
 
 .quest-words {
   display: flex;
   flex-wrap: wrap;
-  gap: 9px;
-  line-height: 2;
+  gap: 8px;
 }
 
 .quest-word {
-  background: #1a3555;
-  color: #e6f0ff;
-  border: 1px solid #355779;
-  border-radius: 8px;
-  padding: 9px 12px;
-  font-size: 14px;
-  font-weight: 550;
+  background: linear-gradient(145deg, #142d50, #1d416c);
+  color: white;
+  border: 1px solid #34577e;
+  border-radius: 10px;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 15px;
+  cursor: pointer;
 }
 
 .quest-word:hover {
-  background: #25496f;
-  border-color: #69b6ff;
-  transform: translateY(-2px);
+  border-color: #8fc8ff;
 }
-
-/* Selected words */
 
 .quest-word-selected {
   background: #245b91;
-  color: white;
-  border: 1px solid #80c4ff;
-  box-shadow: 0 0 0 2px rgba(128, 196, 255, 0.12);
+  border: 2px solid #8fc8ff;
 }
 
-/* Answer feedback */
-
 .quest-word-correct {
-  background: #16483e;
-  color: #a9f2d5;
-  border: 1px solid #3baf87;
+  background: #123e3a;
+  border: 2px solid #42c98a;
 }
 
 .quest-word-wrong {
-  background: #4a2935;
-  color: #ffc1ca;
-  border: 1px solid #bd6376;
+  background: #47252e;
+  border: 2px solid #e77979;
 }
 
 .quest-word:disabled {
-  cursor: default;
   opacity: 1;
-  transform: none;
+  cursor: default;
 }
-
-/* Results */
 
 #quote-quest-results {
-  background: #102a45;
-  border: 1px solid #315779;
-  border-radius: 14px;
-  padding: 20px;
-  margin: 22px 0;
+  margin: 20px 0;
 }
-
-#quote-quest-results h2 {
-  margin: 0 0 8px;
-  color: #83c3ff;
-}
-
-#quote-quest-results p {
-  margin-bottom: 0;
-}
-
-/* Progress */
 
 #quote-quest-progress {
-  display: inline-block;
-  background: #173657;
-  color: #91caff;
-  border: 1px solid #31577d;
-  border-radius: 30px;
-  padding: 8px 15px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
+  color: #8fc8ff;
+  font-weight: bold;
 }
 
-/* Mobile layout */
-
 @media (max-width: 600px) {
-  #quote-quest-game {
-    padding: 20px 14px;
-  }
-
-  #quote-setup {
-    padding: 19px;
-  }
-
-  .quote-quest-card {
-    padding: 17px;
-  }
-
   .quest-word {
-    padding: 8px 10px;
-    font-size: 13px;
-  }
-
-  #quote-setup > button,
-  #quote-quest-area > button {
-    width: 100%;
-    margin: 6px 0;
+    padding: 10px;
+    font-size: 14px;
   }
 }
