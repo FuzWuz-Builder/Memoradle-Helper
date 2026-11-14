@@ -590,31 +590,50 @@ body {
   }
 }
 
-/* QUOTE QUEST */
+
+/* QUOTE QUEST - MATCH MEMORADLE HELPER */
 
 #quote-quest-game {
   font-family: inherit;
-  color: inherit;
+  color: white;
 }
 
-#quote-quest-game h1,
-#quote-quest-game h2,
-#quote-quest-game h3,
+#quote-quest-game h1 {
+  margin-bottom: 12px;
+}
+
+#quote-quest-game h2 {
+  margin-top: 30px;
+  margin-bottom: 12px;
+}
+
 #quote-quest-game p {
-  font-family: inherit;
+  margin-bottom: 22px;
+  line-height: 1.6;
+}
+
+/* Quote entry boxes */
+
+#quote-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 20px;
+  margin-bottom: 25px;
 }
 
 .quest-quote-input {
   width: 100%;
+  min-height: 95px;
   box-sizing: border-box;
   background: #0b1b32;
   color: white;
   border: 1px solid #45678c;
-  border-radius: 9px;
+  border-radius: 10px;
   padding: 14px;
-  font: inherit;
+  font-family: inherit;
   font-size: 16px;
-  margin-bottom: 12px;
+  resize: vertical;
 }
 
 .quest-quote-input:focus {
@@ -622,37 +641,57 @@ body {
   border-color: #8fc8ff;
 }
 
-#quote-inputs {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
+/* Main action buttons */
+
+#quote-setup > button,
+#quote-quest-area > button {
+  background: linear-gradient(135deg, #2675c9, #398ee8);
+  color: white;
+  border: 1px solid #4c9ce9;
+  border-radius: 9px;
+  padding: 13px 22px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  margin: 8px 10px 8px 0;
+  transition: 0.2s;
 }
+
+#quote-setup > button:hover,
+#quote-quest-area > button:hover {
+  background: linear-gradient(135deg, #398ee8, #55a5ff);
+  transform: translateY(-2px);
+}
+
+/* Quote cards */
 
 .quote-quest-card {
   background: #102541;
   border: 1px solid #34577e;
   border-radius: 12px;
-  padding: 18px;
-  margin: 18px 0;
+  padding: 20px;
+  margin: 25px 0;
 }
 
 .quote-quest-card h3 {
-  margin-top: 0;
+  margin-bottom: 18px;
+  color: #8fc8ff;
 }
 
 .quest-words {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 9px;
 }
 
 .quest-word {
   background: linear-gradient(145deg, #142d50, #1d416c);
   color: white;
   border: 1px solid #34577e;
-  border-radius: 10px;
-  padding: 12px;
+  border-radius: 9px;
+  padding: 11px 13px;
   font-family: inherit;
   font-size: 15px;
   cursor: pointer;
@@ -683,17 +722,11 @@ body {
 }
 
 #quote-quest-results {
-  margin: 20px 0;
+  margin: 25px 0;
 }
 
 #quote-quest-progress {
   color: #8fc8ff;
   font-weight: bold;
-}
-
-@media (max-width: 600px) {
-  .quest-word {
-    padding: 10px;
-    font-size: 14px;
-  }
+  margin-top: 25px;
 }
